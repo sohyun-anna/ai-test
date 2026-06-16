@@ -3,34 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CineMatch | 영화 추천 플랫폼</title>
+  <title>오사카 3박 4일 여행 일정</title>
   <style>
     :root {
-      --bg: #07090d;
-      --panel: rgba(16, 19, 28, 0.92);
-      --panel-soft: rgba(255, 255, 255, 0.04);
-      --line: rgba(255, 255, 255, 0.08);
-      --text: #f5f7fb;
-      --muted: #a5afc4;
-      --accent: #e50914;
-      --accent-2: #ff6a3d;
-      --shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
-      --radius-xl: 30px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
-      --max: 1180px;
+      --bg: #f4efe7;
+      --bg-2: #e9f0ee;
+      --panel: rgba(255, 255, 255, 0.78);
+      --panel-solid: #ffffff;
+      --ink: #1f2937;
+      --muted: #5f6b77;
+      --accent: #d94b3d;
+      --accent-2: #1f7a6c;
+      --accent-3: #d6a43a;
+      --line: rgba(31, 41, 55, 0.1);
+      --shadow: 0 22px 60px rgba(32, 38, 50, 0.14);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --max: 1160px;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      color: var(--text);
+      color: var(--ink);
       background:
-        radial-gradient(circle at 10% 0%, rgba(229, 9, 20, 0.22), transparent 24%),
-        radial-gradient(circle at 90% 8%, rgba(255, 106, 61, 0.14), transparent 22%),
-        linear-gradient(180deg, #05070a 0%, #090c12 45%, #08090e 100%);
-      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+        radial-gradient(circle at top left, rgba(217, 75, 61, 0.14), transparent 26%),
+        radial-gradient(circle at top right, rgba(31, 122, 108, 0.13), transparent 25%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      font-family: "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
     }
     a { color: inherit; text-decoration: none; }
     button { font: inherit; cursor: pointer; }
@@ -40,28 +42,58 @@
       margin: 0 auto;
     }
 
+    .shell {
+      position: relative;
+      overflow: clip;
+    }
+
+    .shell::before,
+    .shell::after {
+      content: "";
+      position: fixed;
+      inset: auto;
+      border-radius: 999px;
+      pointer-events: none;
+      filter: blur(10px);
+      opacity: 0.7;
+      z-index: -1;
+    }
+    .shell::before {
+      width: 260px;
+      height: 260px;
+      left: -70px;
+      top: 120px;
+      background: rgba(217, 75, 61, 0.14);
+    }
+    .shell::after {
+      width: 320px;
+      height: 320px;
+      right: -110px;
+      bottom: 80px;
+      background: rgba(31, 122, 108, 0.14);
+    }
+
     .topbar {
       position: sticky;
       top: 0;
       z-index: 20;
-      backdrop-filter: blur(16px);
-      background: rgba(7, 9, 13, 0.78);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(18px);
+      background: rgba(244, 239, 231, 0.82);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.07);
     }
     .topbar-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding: 18px 0;
+      padding: 16px 0;
     }
     .brand {
       display: inline-flex;
       align-items: center;
       gap: 12px;
       font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      letter-spacing: 0.02em;
     }
     .brand-mark {
       width: 42px;
@@ -69,190 +101,190 @@
       border-radius: 14px;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 12px 24px rgba(229, 9, 20, 0.24);
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #ff8b61);
+      box-shadow: 0 12px 22px rgba(217, 75, 61, 0.24);
     }
     .nav {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: flex-end;
       gap: 8px;
     }
     .nav a {
-      color: var(--muted);
       padding: 10px 14px;
       border-radius: 999px;
+      color: var(--muted);
       transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
     }
     .nav a:hover,
     .nav a:focus-visible {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.06);
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.72);
       transform: translateY(-1px);
       outline: none;
     }
 
     .hero {
-      margin-top: 26px;
+      padding: 28px 0 10px;
+    }
+    .hero-panel {
       position: relative;
       overflow: hidden;
-      border-radius: 32px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 36px;
       background:
-        linear-gradient(90deg, rgba(8, 10, 15, 0.96) 0%, rgba(8, 10, 15, 0.82) 34%, rgba(8, 10, 15, 0.18) 100%),
-        radial-gradient(circle at 28% 26%, rgba(229, 9, 20, 0.34), transparent 24%),
-        radial-gradient(circle at 74% 30%, rgba(255, 106, 61, 0.22), transparent 20%),
-        linear-gradient(135deg, #111723 0%, #0c1119 54%, #141824 100%);
+        linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.68)),
+        radial-gradient(circle at 18% 20%, rgba(217, 75, 61, 0.12), transparent 18%),
+        radial-gradient(circle at 78% 22%, rgba(31, 122, 108, 0.12), transparent 20%),
+        linear-gradient(135deg, #fffaf3 0%, #f7f9f8 100%);
+      border: 1px solid rgba(31, 41, 55, 0.08);
       box-shadow: var(--shadow);
     }
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(0deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Crect width='1600' height='900' fill='%23000000' fill-opacity='0'/%3E%3Ccircle cx='1270' cy='220' r='260' fill='%23ffffff' fill-opacity='.05'/%3E%3Cpath d='M0 720 C260 640, 460 850, 760 760 S1260 580, 1600 700 L1600 900 L0 900 Z' fill='%23ffffff' fill-opacity='.03'/%3E%3C/svg%3E");
-      background-size: cover;
-    }
     .hero-inner {
-      position: relative;
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
-      gap: 26px;
-      padding: 42px;
-      min-height: 560px;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: 24px;
+      padding: 38px;
       align-items: center;
     }
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      width: fit-content;
+      gap: 8px;
       padding: 9px 14px;
       border-radius: 999px;
-      color: #ffd7db;
-      background: rgba(229, 9, 20, 0.13);
-      border: 1px solid rgba(229, 9, 20, 0.2);
-      font-size: 0.92rem;
+      color: var(--accent);
+      background: rgba(217, 75, 61, 0.08);
+      border: 1px solid rgba(217, 75, 61, 0.14);
+      font-size: 0.93rem;
+      font-weight: 700;
     }
     .hero h1 {
-      margin: 18px 0 14px;
-      font-size: clamp(2.8rem, 6vw, 5.5rem);
-      line-height: 0.95;
+      margin: 16px 0 14px;
+      font-size: clamp(2.4rem, 5.6vw, 5rem);
+      line-height: 0.98;
       letter-spacing: -0.05em;
       max-width: 10ch;
     }
     .hero p {
       margin: 0;
-      max-width: 60ch;
-      color: #d7ddee;
-      line-height: 1.82;
-      font-size: 1.04rem;
+      max-width: 56ch;
+      line-height: 1.8;
+      color: var(--muted);
+      font-size: 1.03rem;
     }
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 28px;
+      margin-top: 26px;
     }
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
       min-height: 48px;
       padding: 0 18px;
       border-radius: 999px;
-      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
     .btn:hover { transform: translateY(-2px); }
     .btn-primary {
       color: white;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 14px 28px rgba(229, 9, 20, 0.26);
+      background: linear-gradient(135deg, var(--accent), #ff7a59);
+      box-shadow: 0 16px 28px rgba(217, 75, 61, 0.22);
     }
     .btn-secondary {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.7);
+      border-color: rgba(31, 41, 55, 0.1);
     }
 
-    .hero-card {
+    .trip-card {
       display: grid;
       gap: 14px;
       padding: 20px;
-      border-radius: 26px;
-      background: rgba(11, 13, 18, 0.62);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(16px);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(31, 41, 55, 0.08);
     }
-    .hero-poster {
-      min-height: 292px;
-      position: relative;
+    .trip-visual {
+      min-height: 268px;
+      border-radius: 22px;
       overflow: hidden;
-      border-radius: 20px;
+      position: relative;
       background:
-        linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.7)),
-        linear-gradient(135deg, #2a1f49 0%, #ea4c89 42%, #ffb66b 100%);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+        radial-gradient(circle at 28% 25%, rgba(255, 255, 255, 0.8), transparent 22%),
+        radial-gradient(circle at 74% 18%, rgba(255, 255, 255, 0.36), transparent 16%),
+        linear-gradient(135deg, #0f766e 0%, #f59e0b 45%, #ef4444 100%);
     }
-    .hero-poster::after {
+    .trip-visual::before {
       content: "";
       position: absolute;
-      inset: auto 18px 18px 18px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, rgba(10, 12, 18, 0.6), rgba(10, 12, 18, 0.08));
-      backdrop-filter: blur(8px);
-      padding: 18px;
+      inset: auto -8% -18% -8%;
+      height: 56%;
+      background:
+        radial-gradient(circle at 12% 38%, rgba(255,255,255,0.9), transparent 14%),
+        radial-gradient(circle at 25% 54%, rgba(255,255,255,0.26), transparent 9%),
+        radial-gradient(circle at 44% 36%, rgba(255,255,255,0.82), transparent 16%),
+        radial-gradient(circle at 58% 50%, rgba(255,255,255,0.26), transparent 10%),
+        radial-gradient(circle at 78% 33%, rgba(255,255,255,0.88), transparent 15%),
+        linear-gradient(180deg, rgba(17, 24, 39, 0), rgba(17, 24, 39, 0.08));
+      opacity: 0.94;
+      transform: skewY(-4deg);
     }
-    .poster-copy {
+    .trip-overlay {
       position: absolute;
-      left: 18px;
-      right: 18px;
-      bottom: 18px;
-      z-index: 1;
+      inset: auto 18px 18px 18px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.52);
+      color: white;
+      backdrop-filter: blur(10px);
     }
-    .poster-copy strong {
+    .trip-overlay strong {
       display: block;
-      font-size: 1.18rem;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      font-size: 1.05rem;
     }
-    .poster-copy span {
-      color: var(--muted);
-      line-height: 1.65;
+    .trip-overlay span {
       display: block;
+      color: rgba(255, 255, 255, 0.84);
+      line-height: 1.6;
+      font-size: 0.95rem;
     }
-    .hero-stats {
+    .trip-stats {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
     }
     .stat {
       padding: 14px 12px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(31, 41, 55, 0.08);
       text-align: center;
     }
     .stat strong {
       display: block;
       margin-bottom: 4px;
-      font-size: 1.08rem;
+      font-size: 1.05rem;
     }
     .stat span {
       color: var(--muted);
-      font-size: 0.82rem;
+      font-size: 0.85rem;
     }
 
-    main { padding: 30px 0 70px; }
+    main { padding: 24px 0 72px; }
     .section {
-      margin-top: 28px;
+      margin-top: 24px;
       padding: 28px;
-      border-radius: 28px;
+      border-radius: var(--radius-xl);
       background: var(--panel);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(31, 41, 55, 0.08);
       box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
     }
     .section-header {
       display: flex;
@@ -263,111 +295,27 @@
     }
     .section-header h2 {
       margin: 0;
-      font-size: clamp(1.35rem, 2.4vw, 2rem);
+      font-size: clamp(1.35rem, 2.6vw, 2rem);
       letter-spacing: -0.03em;
     }
     .section-header p {
       margin: 6px 0 0;
       color: var(--muted);
-      max-width: 60ch;
-      line-height: 1.65;
+      line-height: 1.7;
+      max-width: 64ch;
     }
     .section-tag {
-      color: #ffe3e5;
-      background: rgba(229, 9, 20, 0.12);
-      border: 1px solid rgba(229, 9, 20, 0.18);
-      border-radius: 999px;
-      padding: 8px 12px;
       white-space: nowrap;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--accent-2);
+      background: rgba(31, 122, 108, 0.08);
+      border: 1px solid rgba(31, 122, 108, 0.14);
       font-size: 0.88rem;
+      font-weight: 700;
     }
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 16px;
-    }
-    .movie-card {
-      overflow: hidden;
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025));
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
-      min-height: 362px;
-      position: relative;
-    }
-    .movie-card:hover {
-      transform: translateY(-8px) scale(1.01);
-      border-color: rgba(229, 9, 20, 0.34);
-      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
-    }
-    .movie-art {
-      height: 222px;
-      position: relative;
-      overflow: hidden;
-    }
-    .movie-art::before,
-    .movie-art::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(10px);
-    }
-    .movie-art::before {
-      width: 140px;
-      height: 140px;
-      right: -18px;
-      top: -26px;
-      background: rgba(255, 255, 255, 0.12);
-    }
-    .movie-art::after {
-      width: 220px;
-      height: 220px;
-      left: -42px;
-      bottom: -98px;
-      background: rgba(0, 0, 0, 0.2);
-    }
-    .art-1 { background: linear-gradient(135deg, #0f172a 0%, #3b82f6 45%, #0f172a 100%); }
-    .art-2 { background: linear-gradient(135deg, #111827 0%, #ef4444 42%, #111827 100%); }
-    .art-3 { background: linear-gradient(135deg, #0f172a 0%, #8b5cf6 45%, #0f172a 100%); }
-    .art-4 { background: linear-gradient(135deg, #111827 0%, #14b8a6 42%, #111827 100%); }
-    .art-5 { background: linear-gradient(135deg, #1f2937 0%, #f59e0b 46%, #111827 100%); }
-    .art-6 { background: linear-gradient(135deg, #111827 0%, #ec4899 42%, #111827 100%); }
-    .art-7 { background: linear-gradient(135deg, #0f172a 0%, #22c55e 44%, #0f172a 100%); }
-    .art-8 { background: linear-gradient(135deg, #111827 0%, #6366f1 44%, #111827 100%); }
-    .score {
-      position: absolute;
-      z-index: 1;
-      top: 14px;
-      right: 14px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(10, 12, 18, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 0.86rem;
-      color: white;
-    }
-    .movie-body { padding: 16px; }
-    .movie-body h3 {
-      margin: 0 0 8px;
-      font-size: 1.05rem;
-    }
-    .movie-body p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.65;
-      font-size: 0.95rem;
-    }
-    .movie-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-top: 14px;
-      color: #d8def0;
-      font-size: 0.86rem;
-    }
-    .genre-filters {
+    .day-tabs {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -376,110 +324,131 @@
     .chip {
       padding: 11px 15px;
       border-radius: 999px;
+      border: 1px solid rgba(31, 41, 55, 0.1);
+      background: rgba(255, 255, 255, 0.65);
       color: var(--muted);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
-    .chip:hover { transform: translateY(-2px); color: var(--text); }
+    .chip:hover { transform: translateY(-2px); color: var(--ink); }
     .chip.is-active {
       color: white;
       border-color: transparent;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 14px 28px rgba(229, 9, 20, 0.18);
+      background: linear-gradient(135deg, var(--accent), #ff7a59);
+      box-shadow: 0 14px 24px rgba(217, 75, 61, 0.18);
     }
 
-    .daily-grid {
+    .schedule-grid {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
       gap: 16px;
       align-items: start;
     }
-    .spotlight {
-      display: grid;
-      gap: 16px;
-      padding: 22px;
+    .day-panel {
+      padding: 24px;
       border-radius: 24px;
-      background:
-        linear-gradient(135deg, rgba(229, 9, 20, 0.12), rgba(255, 255, 255, 0.03)),
-        rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(31, 41, 55, 0.08);
     }
-    .spotlight h3 {
-      margin: 0;
-      font-size: 1.42rem;
+    .day-panel h3 {
+      margin: 0 0 10px;
+      font-size: 1.4rem;
     }
-    .spotlight p {
-      margin: 0;
+    .day-panel p {
+      margin: 0 0 16px;
       color: var(--muted);
-      line-height: 1.76;
+      line-height: 1.75;
     }
-    .detail-list {
+    .timeline {
       display: grid;
       gap: 12px;
     }
-    .detail-item {
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
       padding: 14px 16px;
       border-radius: 18px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      line-height: 1.6;
-      color: #dde4f3;
+      background: rgba(244, 239, 231, 0.76);
+      border: 1px solid rgba(31, 41, 55, 0.07);
     }
-    .detail-item strong {
+    .timeline-item time {
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .timeline-item strong {
       display: block;
       margin-bottom: 4px;
-      color: #fff;
     }
-    .mini-cards {
+    .timeline-item span {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+    .note-list {
+      display: grid;
+      gap: 12px;
+    }
+    .note {
+      padding: 15px 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      line-height: 1.65;
+    }
+    .note strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+    .note span {
+      color: var(--muted);
+    }
+
+    .grid-2 {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      gap: 16px;
     }
-    .mini-card {
-      padding: 18px;
-      min-height: 160px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: transform 0.22s ease, border-color 0.22s ease;
+    .check-card {
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(31, 41, 55, 0.08);
     }
-    .mini-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255, 255, 255, 0.18);
+    .check-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.08rem;
     }
-    .mini-card h4 {
-      margin: 10px 0 8px;
-      font-size: 1rem;
-    }
-    .mini-card p {
+    .check-list {
+      display: grid;
+      gap: 10px;
       margin: 0;
-      color: var(--muted);
-      line-height: 1.65;
-      font-size: 0.92rem;
+      padding: 0;
+      list-style: none;
     }
-    .mini-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-size: 0.86rem;
-      color: white;
-      background: rgba(229, 9, 20, 0.12);
-      border: 1px solid rgba(229, 9, 20, 0.18);
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+    .check-list li::before {
+      content: "•";
+      color: var(--accent);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-top: 1px;
     }
 
     .footer {
-      margin-top: 30px;
-      padding: 24px 0 38px;
+      padding: 26px 0 40px;
       text-align: center;
       color: var(--muted);
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
     }
-    .footer strong { color: var(--text); }
+    .footer strong { color: var(--ink); }
 
-    .reveal { animation: floatIn 0.8s ease both; }
+    .reveal { animation: floatIn 0.75s ease both; }
     .delay-1 { animation-delay: 0.08s; }
     .delay-2 { animation-delay: 0.16s; }
     .delay-3 { animation-delay: 0.24s; }
@@ -491,10 +460,9 @@
 
     @media (max-width: 1024px) {
       .hero-inner,
-      .daily-grid {
+      .schedule-grid {
         grid-template-columns: 1fr;
       }
-      .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 720px) {
       .topbar-inner {
@@ -503,308 +471,261 @@
       }
       .nav { justify-content: flex-start; }
       .hero-inner,
-      .section { padding: 22px; }
-      .hero { border-radius: 26px; }
-      .cards,
-      .hero-stats,
-      .mini-cards { grid-template-columns: 1fr; }
-      .section-header { flex-direction: column; align-items: flex-start; }
+      .section {
+        padding: 20px;
+      }
+      .hero-panel { border-radius: 28px; }
       .hero h1 { max-width: none; }
+      .grid-2,
+      .trip-stats {
+        grid-template-columns: 1fr;
+      }
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <a class="brand" href="#top" aria-label="CineMatch 홈으로">
-        <span class="brand-mark">CM</span>
-        <span>CineMatch</span>
-      </a>
-      <nav class="nav" aria-label="주요 메뉴">
-        <a href="#popular">인기 영화</a>
-        <a href="#genres">장르 추천</a>
-        <a href="#daily">오늘의 추천</a>
-        <a href="#footer">Footer</a>
-      </nav>
-    </div>
-  </header>
-
-  <section class="hero container reveal" id="top">
-    <div class="hero-inner">
-      <div>
-        <div class="eyebrow">오늘 바로 볼 만한 영화를 쉽게 고르기</div>
-        <h1>당신의 취향에 맞는 영화 추천</h1>
-        <p>
-          비슷한 분위기와 취향을 빠르게 비교하면서, 오늘의 기분에 맞는 영화를 바로 찾을 수 있는
-          메인 페이지입니다. 어두운 테마의 카드 UI와 간단한 추천 흐름으로 보기 편하게 구성했습니다.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#daily">오늘의 추천 보기</a>
-          <a class="btn btn-secondary" href="#popular">인기 영화 둘러보기</a>
-        </div>
+  <div class="shell">
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a class="brand" href="#top" aria-label="오사카 3박 4일 여행 일정">
+          <span class="brand-mark">OS</span>
+          <span>Osaka Trip</span>
+        </a>
+        <nav class="nav" aria-label="페이지 섹션">
+          <a href="#overview">요약</a>
+          <a href="#schedule">일정</a>
+          <a href="#checklist">준비물</a>
+        </nav>
       </div>
+    </header>
 
-      <aside class="hero-card" aria-label="추천 하이라이트">
-        <div class="hero-poster">
-          <div class="poster-copy">
-            <strong>Tonight's featured pick</strong>
-            <span>
-              감정선이 깊은 작품부터 빠른 전개가 매력적인 작품까지,
-              첫 화면에서 바로 분위기를 확인할 수 있도록 설계했습니다.
-            </span>
-          </div>
-        </div>
-        <div class="hero-stats">
-          <div class="stat">
-            <strong>1,200+</strong>
-            <span>큐레이션 영화</span>
-          </div>
-          <div class="stat">
-            <strong>98%</strong>
-            <span>추천 만족도</span>
-          </div>
-          <div class="stat">
-            <strong>24/7</strong>
-            <span>업데이트</span>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-  <main class="container">
-    <section class="section reveal delay-1" id="popular">
-      <div class="section-header">
-        <div>
-          <h2>인기 영화 카드 섹션</h2>
-          <p>현재 많이 선택되는 영화들을 제목, 장르, 평점, 짧은 설명과 함께 카드로 보여줍니다.</p>
-        </div>
-        <span class="section-tag">Trending Now</span>
-      </div>
-      <div class="cards" id="popular-cards"></div>
-    </section>
-
-    <section class="section reveal delay-2" id="genres">
-      <div class="section-header">
-        <div>
-          <h2>장르별 추천 섹션</h2>
-          <p>장르 버튼을 누르면 분위기에 맞는 카드 구성이 바뀌어, 원하는 분위기를 빠르게 찾을 수 있습니다.</p>
-        </div>
-        <span class="section-tag">Genre Explorer</span>
-      </div>
-      <div class="genre-filters" id="genre-filters"></div>
-      <div class="cards" id="genre-cards"></div>
-    </section>
-
-    <section class="section reveal delay-3" id="daily">
-      <div class="section-header">
-        <div>
-          <h2>오늘의 추천 영화 섹션</h2>
-          <p>오늘의 감정과 시청 상황을 기준으로, 한 편을 깊게 읽어볼 수 있게 정리한 영역입니다.</p>
-        </div>
-        <span class="section-tag">Daily Match</span>
-      </div>
-      <div class="daily-grid">
-        <article class="spotlight">
-          <div class="mini-badge">Editor's Choice</div>
-          <h3 id="spotlight-title">시티 오브 라이트</h3>
-          <p id="spotlight-copy">
-            밤의 도시를 배경으로 서로 다른 삶을 살아가던 두 인물이 우연히 만나 삶의 균열을 다시
-            봉합해 가는 정서 중심의 드라마입니다. 섬세한 미장센과 안정적인 리듬이 돋보이며,
-            조용하지만 오래 남는 여운을 남깁니다.
-          </p>
-          <div class="detail-list" id="spotlight-details"></div>
-        </article>
-
-        <div class="mini-cards" id="daily-cards"></div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer" id="footer">
-    <div class="container">
-      <strong>CineMatch</strong> - 영화 추천 플랫폼 메인 페이지
-      <div>단일 HTML 파일로 구성된 브라우저 실행형 데모</div>
-    </div>
-  </footer>
-
-  <script>
-    const popularMovies = [
-      {
-        title: "미드나이트 아크",
-        genre: "SF",
-        desc: "압도적인 비주얼과 빠른 전개가 강점인 SF 스릴러. 복잡한 세계관을 직관적으로 풀어냅니다.",
-        meta: "132 min · 하이콘셉트",
-        score: "9.3",
-        art: "art-1"
-      },
-      {
-        title: "루프 오브 섀도우",
-        genre: "미스터리",
-        desc: "복선과 반전이 촘촘한 미스터리. 끝까지 긴장감을 놓지 못하게 만드는 작품입니다.",
-        meta: "118 min · 서스펜스",
-        score: "9.0",
-        art: "art-2"
-      },
-      {
-        title: "더 골든 시그널",
-        genre: "로맨스",
-        desc: "인물 간 케미와 감성 연출이 뛰어난 로맨스 드라마. 따뜻한 색감이 인상적입니다.",
-        meta: "124 min · 감성 드라마",
-        score: "8.7",
-        art: "art-3"
-      },
-      {
-        title: "프로젝트: 레벨 업",
-        genre: "액션",
-        desc: "스타일리시한 액션과 경쾌한 리듬으로 에너지가 살아 있는 엔터테인먼트 영화입니다.",
-        meta: "126 min · 스피드 액션",
-        score: "8.8",
-        art: "art-4"
-      }
-    ];
-
-    const genreData = {
-      전체: [
-        { title: "노바 레인", genre: "SF", desc: "감각적인 미래 도시와 서스펜스가 결합된 스타일리시 SF.", meta: "129 min · 미래극", score: "9.1", art: "art-5" },
-        { title: "브레이크 포인트", genre: "액션", desc: "압박감 넘치는 추격전과 인간 드라마가 균형을 이루는 액션.", meta: "121 min · 추격물", score: "8.9", art: "art-6" },
-        { title: "메모리 오브 윈터", genre: "드라마", desc: "겨울 풍경 속 상실과 회복을 다룬 섬세한 감성 드라마.", meta: "116 min · 휴먼 드라마", score: "9.2", art: "art-7" },
-        { title: "하이퍼 포커스", genre: "스릴러", desc: "소재의 참신함과 깔끔한 편집으로 몰입감을 높인 스릴러.", meta: "110 min · 심리 스릴러", score: "8.8", art: "art-8" }
-      ],
-      액션: [
-        { title: "브레이크 포인트", genre: "액션", desc: "도심 추격과 근접 전투가 돋보이는 하이 텐션 액션.", meta: "121 min · 추격물", score: "8.9", art: "art-6" },
-        { title: "프로젝트: 레벨 업", genre: "액션", desc: "팀플레이와 스타일이 살아 있는 현대적 액션물.", meta: "126 min · 스피드 액션", score: "8.8", art: "art-4" },
-        { title: "파이어라인", genre: "액션", desc: "구조 작전과 생존의 긴장감을 강하게 밀어붙이는 재난 액션.", meta: "119 min · 재난 액션", score: "8.6", art: "art-1" },
-        { title: "아이언 폴스", genre: "액션", desc: "거친 질감의 도시 액션과 묵직한 드라마가 공존합니다.", meta: "128 min · 범죄 액션", score: "8.7", art: "art-2" }
-      ],
-      로맨스: [
-        { title: "더 골든 시그널", genre: "로맨스", desc: "섬세한 감정선과 음악이 기억에 남는 로맨틱 드라마.", meta: "124 min · 감성 드라마", score: "8.7", art: "art-3" },
-        { title: "라스트 카페", genre: "로맨스", desc: "한 밤의 카페에서 시작되는 우연한 인연과 설렘의 이야기.", meta: "112 min · 도시 로맨스", score: "9.0", art: "art-5" },
-        { title: "먼데이 블루", genre: "로맨스", desc: "일상 속의 오해와 화해를 담백하게 풀어낸 현실 로맨스.", meta: "108 min · 생활 로맨스", score: "8.5", art: "art-7" },
-        { title: "스틸 스프링", genre: "로맨스", desc: "봄의 공기처럼 부드럽고 따뜻한 성장형 사랑 이야기.", meta: "117 min · 성장 로맨스", score: "8.8", art: "art-8" }
-      ],
-      스릴러: [
-        { title: "루프 오브 섀도우", genre: "스릴러", desc: "복선과 심리전이 정교하게 맞물리는 미스터리 스릴러.", meta: "118 min · 서스펜스", score: "9.0", art: "art-2" },
-        { title: "하이퍼 포커스", genre: "스릴러", desc: "긴장감과 정보량을 정교하게 조절한 도시 스릴러.", meta: "110 min · 심리 스릴러", score: "8.8", art: "art-8" },
-        { title: "더 클로즈드 룸", genre: "스릴러", desc: "폐쇄된 공간에서 서서히 드러나는 진실이 매력적인 작품.", meta: "113 min · 밀실극", score: "8.9", art: "art-6" },
-        { title: "노바 레인", genre: "스릴러", desc: "미래적 배경과 심리전을 결합한 하이브리드 스릴러.", meta: "129 min · 미래극", score: "9.1", art: "art-5" }
-      ],
-      드라마: [
-        { title: "메모리 오브 윈터", genre: "드라마", desc: "상실 이후의 회복을 섬세하게 담아낸 감성 드라마.", meta: "116 min · 휴먼 드라마", score: "9.2", art: "art-7" },
-        { title: "시티 오브 라이트", genre: "드라마", desc: "도시의 풍경과 인물의 내면을 우아하게 교차시키는 작품.", meta: "127 min · 도시 드라마", score: "9.4", art: "art-1" },
-        { title: "브릿지 라이프", genre: "드라마", desc: "세대 간 갈등과 이해를 중심에 둔 따뜻한 가족 서사.", meta: "122 min · 가족극", score: "8.9", art: "art-4" },
-        { title: "슬로우 타이드", genre: "드라마", desc: "느린 호흡으로 여운을 남기는 인물 중심의 드라마.", meta: "115 min · 잔잔한 여운", score: "8.8", art: "art-3" }
-      ]
-    };
-
-    const dailyPicks = [
-      {
-        title: "시티 오브 라이트",
-        copy: "밤의 도시를 배경으로 서로 다른 삶을 살아가던 두 인물이 우연히 만나 삶의 균열을 다시 봉합해 가는 정서 중심의 드라마입니다. 섬세한 미장센과 안정적인 리듬이 돋보이며, 조용하지만 오래 남는 여운을 남깁니다.",
-        details: [
-          { label: "추천 포인트", value: "감정선, 미장센, 여운" },
-          { label: "보기 좋은 시간", value: "차분하게 몰입하고 싶은 밤" },
-          { label: "추천 대상", value: "드라마와 휴먼 스토리를 좋아하는 분" }
-        ]
-      },
-      {
-        title: "노바 레인",
-        copy: "비와 네온이 가득한 미래 도시에서 벌어지는 추적과 선택의 이야기입니다. 액션과 스릴러가 균형 있게 조화를 이루며, 시각적인 완성도가 높아 큰 화면으로 보기에도 잘 어울립니다.",
-        details: [
-          { label: "추천 포인트", value: "세계관, 속도감, 비주얼" },
-          { label: "보기 좋은 시간", value: "집중해서 한 번에 보고 싶을 때" },
-          { label: "추천 대상", value: "SF와 스릴러를 좋아하는 분" }
-        ]
-      },
-      {
-        title: "라스트 카페",
-        copy: "도심의 작은 카페를 중심으로 관계가 천천히 쌓이는 로맨스입니다. 잔잔한 유머와 생활감 있는 대사가 매력적이며, 가볍지만 충분히 만족스러운 감정선을 제공합니다.",
-        details: [
-          { label: "추천 포인트", value: "대사, 케미, 분위기" },
-          { label: "보기 좋은 시간", value: "편안하게 쉬고 싶은 저녁" },
-          { label: "추천 대상", value: "따뜻한 로맨스를 찾는 분" }
-        ]
-      },
-      {
-        title: "하이퍼 포커스",
-        copy: "현실적인 동기와 빠른 전개가 특징인 심리 스릴러입니다. 제한된 정보 속에서 퍼즐처럼 이어지는 사건들이 끝까지 긴장감을 유지시켜 줍니다.",
-        details: [
-          { label: "추천 포인트", value: "반전, 심리전, 몰입감" },
-          { label: "보기 좋은 시간", value: "몰아서 보기 좋은 시간대" },
-          { label: "추천 대상", value: "추리와 긴장감을 즐기는 분" }
-        ]
-      }
-    ];
-
-    const popularRoot = document.getElementById("popular-cards");
-    const genreFiltersRoot = document.getElementById("genre-filters");
-    const genreCardsRoot = document.getElementById("genre-cards");
-    const dailyCardsRoot = document.getElementById("daily-cards");
-    const spotlightTitle = document.getElementById("spotlight-title");
-    const spotlightCopy = document.getElementById("spotlight-copy");
-    const spotlightDetails = document.getElementById("spotlight-details");
-
-    function movieCard(movie) {
-      return `
-        <article class="movie-card">
-          <div class="movie-art ${movie.art}">
-            <div class="score">${movie.score}</div>
-          </div>
-          <div class="movie-body">
-            <h3>${movie.title}</h3>
-            <p>${movie.desc}</p>
-            <div class="movie-meta">
-              <span>${movie.genre}</span>
-              <span>${movie.meta}</span>
+    <section class="hero container reveal" id="top">
+      <div class="hero-panel">
+        <div class="hero-inner">
+          <div>
+            <div class="eyebrow">오사카 3박 4일 · 실전형 일정</div>
+            <h1>오사카를 처음 가는 사람도 바로 쓰는 여행 일정</h1>
+            <p>
+              도톤보리, 우메다, 오사카성, 신세카이, 교토 당일치기까지.
+              이동 동선은 단순하게, 일정은 빡빡하지 않게 정리한 3박 4일 코스입니다.
+              핵심만 담아 바로 참고할 수 있도록 구성했습니다.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#schedule">일정 바로 보기</a>
+              <a class="btn btn-secondary" href="#checklist">준비물 확인</a>
             </div>
           </div>
-        </article>
+
+          <aside class="trip-card" aria-label="여행 요약">
+            <div class="trip-visual">
+              <div class="trip-overlay">
+                <strong>오사카 베이스, 이동은 간단하게</strong>
+                <span>도착일은 난바, 둘째 날은 오사카 시내, 셋째 날은 교토 반나절, 마지막 날은 공항 이동 중심으로 설계했습니다.</span>
+              </div>
+            </div>
+            <div class="trip-stats">
+              <div class="stat">
+                <strong>3박 4일</strong>
+                <span>짧고 밀도 있는 코스</span>
+              </div>
+              <div class="stat">
+                <strong>오사카 중심</strong>
+                <span>이동 스트레스 최소화</span>
+              </div>
+              <div class="stat">
+                <strong>핵심만</strong>
+                <span>일정·동선·준비물</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <main class="container">
+      <section class="section reveal delay-1" id="overview">
+        <div class="section-header">
+          <div>
+            <h2>여행 한눈에 보기</h2>
+            <p>오사카를 처음 가는 일정이라면, 숙소는 난바나 우메다 근처로 잡고 하루 한 번만 크게 이동하는 방식이 가장 편합니다.</p>
+          </div>
+          <span class="section-tag">Simple Route</span>
+        </div>
+
+        <div class="grid-2">
+          <article class="note">
+            <strong>추천 동선</strong>
+            <span>간사이 공항 - 난바 체크인 - 도톤보리 - 오사카성 - 교토 반나절 - 신세카이 - 출국</span>
+          </article>
+          <article class="note">
+            <strong>숙소 기준</strong>
+            <span>난바는 먹거리와 밤 산책이 편하고, 우메다는 우천 시 이동과 공항 접근이 수월합니다.</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section reveal delay-2" id="schedule">
+        <div class="section-header">
+          <div>
+            <h2>3박 4일 일정</h2>
+            <p>날짜별로 무리 없이 이동할 수 있게 하루의 핵심만 남겼습니다. 버튼을 눌러 각 날짜를 전환해 볼 수 있습니다.</p>
+          </div>
+          <span class="section-tag">Day by Day</span>
+        </div>
+
+        <div class="day-tabs" id="day-tabs"></div>
+
+        <div class="schedule-grid">
+          <article class="day-panel" id="schedule-panel" aria-live="polite"></article>
+
+          <aside class="day-panel">
+            <h3>실전 팁</h3>
+            <div class="note-list">
+              <div class="note">
+                <strong>교통</strong>
+                <span>ICOCA나 교통카드를 준비해 두면 지하철과 편의점 결제가 훨씬 편합니다.</span>
+              </div>
+              <div class="note">
+                <strong>식사</strong>
+                <span>점심은 인기 맛집, 저녁은 도톤보리나 난바에서 가볍게 해결하면 동선이 단순합니다.</span>
+              </div>
+              <div class="note">
+                <strong>예약</strong>
+                <span>유니버설 스튜디오 재팬을 넣는다면 입장권과 시간대 예약을 먼저 확인하세요.</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section reveal delay-3" id="checklist">
+        <div class="section-header">
+          <div>
+            <h2>핵심 준비물</h2>
+            <p>이 페이지는 핵심만 담는 구성이라, 준비물도 꼭 필요한 것만 정리했습니다.</p>
+          </div>
+          <span class="section-tag">Minimal Prep</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="check-card">
+            <h3>출발 전</h3>
+            <ul class="check-list">
+              <li>여권 유효기간 확인</li>
+              <li>항공권과 숙소 예약 확인</li>
+              <li>교통카드 또는 모바일 결제 수단 준비</li>
+            </ul>
+          </div>
+          <div class="check-card">
+            <h3>현지에서</h3>
+            <ul class="check-list">
+              <li>충전기, 보조배터리, 상비약</li>
+              <li>비 오는 날 대비 접이식 우산</li>
+              <li>하루 이동 동선만 미리 저장</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="footer">
+      <div class="container">
+        <strong>Osaka Trip</strong> - 오사카 3박 4일 여행 일정 소개 페이지
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const schedule = [
+      {
+        label: "Day 1",
+        title: "간사이 도착, 난바와 도톤보리로 적응",
+        summary: "도착일은 무리하지 말고 숙소 체크인과 주변 산책 위주로 보냅니다. 밤에 도톤보리와 난바를 가볍게 둘러보는 흐름이 가장 편합니다.",
+        items: [
+          { time: "오후", title: "간사이 공항 도착", text: "공항에서 난바로 이동해 숙소 체크인 후 휴식합니다." },
+          { time: "저녁", title: "도톤보리 산책", text: "글리코상, 강변, 네온거리 중심으로 가볍게 둘러봅니다." },
+          { time: "밤", title: "난바 식사", text: "규동, 오코노미야키, 타코야키 중 하나로 첫 끼를 해결합니다." }
+        ]
+      },
+      {
+        label: "Day 2",
+        title: "오사카 시내 핵심 코스",
+        summary: "둘째 날은 오사카성, 우메다, 쇼핑 구역을 한 번에 묶습니다. 이동은 짧게, 볼거리는 굵게 가져가는 날입니다.",
+        items: [
+          { time: "오전", title: "오사카성", text: "성곽 주변 산책과 전망 포인트 위주로 천천히 둘러봅니다." },
+          { time: "점심", title: "우메다 이동", text: "백화점이나 푸드코트에서 간단히 먹고 이동 피로를 줄입니다." },
+          { time: "오후", title: "우메다 스카이빌딩", text: "전망대와 주변 상업지구를 묶어 둘러봅니다." }
+        ]
+      },
+      {
+        label: "Day 3",
+        title: "교토 반나절 또는 오사카 취향 여행",
+        summary: "세 번째 날은 교토를 다녀오거나, 오사카 안에서 취향대로 더 여유 있게 보내도 좋습니다. 실전형 일정답게 선택지를 남겨둡니다.",
+        items: [
+          { time: "오전", title: "교토 이동", text: "기온이나 후시미이나리 등 대표 구역 중 하나를 선택합니다." },
+          { time: "오후", title: "카페와 산책", text: "관광 동선 사이에 카페 휴식을 넣어 체력을 아낍니다." },
+          { time: "저녁", title: "신세카이", text: "통카츠와 레트로 분위기로 여행 느낌을 마무리합니다." }
+        ]
+      },
+      {
+        label: "Day 4",
+        title: "출국 준비와 마지막 쇼핑",
+        summary: "마지막 날은 공항 이동을 고려해 짐 정리와 가까운 구역 쇼핑만 남깁니다. 동선을 짧게 잡는 것이 핵심입니다.",
+        items: [
+          { time: "오전", title: "체크아웃", text: "숙소 주변에서 가벼운 아침을 먹고 짐을 정리합니다." },
+          { time: "점심", title: "마지막 기념품", text: "공항 전 난바나 우메다에서 필요한 것만 빠르게 구입합니다." },
+          { time: "오후", title: "공항 이동", text: "출국 시간에 맞춰 간사이 공항으로 이동합니다." }
+        ]
+      }
+    ];
+
+    const tabsRoot = document.getElementById("day-tabs");
+    const panelRoot = document.getElementById("schedule-panel");
+
+    function renderTabs(activeIndex = 0) {
+      tabsRoot.innerHTML = schedule.map((day, index) => `
+        <button class="chip ${index === activeIndex ? "is-active" : ""}" type="button" data-index="${index}">
+          ${day.label}
+        </button>
+      `).join("");
+    }
+
+    function renderPanel(index = 0) {
+      const day = schedule[index];
+      panelRoot.innerHTML = `
+        <h3>${day.title}</h3>
+        <p>${day.summary}</p>
+        <div class="timeline">
+          ${day.items.map((item) => `
+            <div class="timeline-item">
+              <time>${item.time}</time>
+              <div>
+                <strong>${item.title}</strong>
+                <span>${item.text}</span>
+              </div>
+            </div>
+          `).join("")}
+        </div>
       `;
     }
 
-    function renderPopular() {
-      popularRoot.innerHTML = popularMovies.map(movieCard).join("");
-    }
-
-    function renderGenres(activeGenre = "전체") {
-      const genres = Object.keys(genreData);
-      genreFiltersRoot.innerHTML = genres.map((genre) => `
-        <button class="chip ${genre === activeGenre ? "is-active" : ""}" type="button" data-genre="${genre}">
-          ${genre}
-        </button>
-      `).join("");
-
-      genreCardsRoot.innerHTML = genreData[activeGenre].map(movieCard).join("");
-    }
-
-    function renderDaily() {
-      dailyCardsRoot.innerHTML = dailyPicks.map((pick) => `
-        <article class="mini-card">
-          <div class="mini-badge">${pick.title}</div>
-          <h4>오늘의 추천 후보</h4>
-          <p>${pick.copy.slice(0, 110)}...</p>
-        </article>
-      `).join("");
-
-      spotlightTitle.textContent = dailyPicks[0].title;
-      spotlightCopy.textContent = dailyPicks[0].copy;
-      spotlightDetails.innerHTML = dailyPicks[0].details.map((item) => `
-        <div class="detail-item">
-          <strong>${item.label}</strong>
-          <span>${item.value}</span>
-        </div>
-      `).join("");
-    }
-
-    genreFiltersRoot.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-genre]");
+    tabsRoot.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-index]");
       if (!button) return;
-      renderGenres(button.dataset.genre);
+      const index = Number(button.dataset.index);
+      renderTabs(index);
+      renderPanel(index);
     });
 
-    renderPopular();
-    renderGenres();
-    renderDaily();
+    renderTabs(0);
+    renderPanel(0);
   </script>
 </body>
 </html>
